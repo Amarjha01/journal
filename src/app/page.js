@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <main className="max-w-6xl mx-auto px-4 py-12">
+      <main className="max-w-6xl mx-auto px-4 py-12 ">
         <h1 className="text-4xl font-bold mb-4">
           Welcome to the International Journal of Interdisciplinary Research in Chemistry & Biology
         </h1>

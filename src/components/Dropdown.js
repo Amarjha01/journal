@@ -7,7 +7,7 @@ export default function Dropdown({ title, items }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-1 hover:text-blue-600"

@@ -36,7 +36,7 @@ export default function Footer() {
         </div>
 
         <div className="text-center text-xs text-gray-500 mt-6">
-          Designed and maintained by the IJIRBSE Web Team.
+          Designed and maintained by the FebTech It Solutions PVT. LTD. Web Team.
         </div>
       </div>
     </footer>

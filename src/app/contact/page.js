@@ -56,22 +56,22 @@ export default function Contact() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen ">
       <Navbar />
       <main className="grow flex justify-center items-center py-12 px-4">
-        <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-lg">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-gray-800">
+        <div className="w-full max-w-3xl border p-8 rounded-2xl shadow-lg">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-gray-100">
             Contact Us
           </h1>
 
-          <p className="mb-8 text-gray-600 text-center">
+          <p className="mb-8 text-gray-200 text-center">
             For inquiries related to submissions, editorial policies, or general questions,
             please contact us using the form below.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">Name</label>
+              <label className="block mb-1 font-semibold text-gray-200">Name</label>
               <input
                 type="text"
                 name="name"
@@ -84,7 +84,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">Email</label>
+              <label className="block mb-1 font-semibold text-gray-200">Email</label>
               <input
                 type="email"
                 name="email"
@@ -97,7 +97,7 @@ export default function Contact() {
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">Message</label>
+              <label className="block mb-1 font-semibold text-gray-200">Message</label>
               <textarea
                 name="message"
                 value={formData.message}

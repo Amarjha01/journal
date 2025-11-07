@@ -1,7 +1,8 @@
 "use client";
+
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function SubmitArticle() {
@@ -13,6 +14,7 @@ export default function SubmitArticle() {
     file: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -25,8 +27,15 @@ export default function SubmitArticle() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
     if (!formData.file) {
-      alert("Please upload a manuscript file before submitting.");
+      toast.error("Please upload a manuscript file before submitting.");
+      return;
+    }
+
+    // Max file size 10MB
+    if (formData.file.size > 10 * 1024 * 1024) {
+      toast.error("File size exceeds 10MB limit.");
       return;
     }
 
@@ -35,7 +44,7 @@ export default function SubmitArticle() {
     data.append("affiliation", formData.affiliation);
     data.append("email", formData.email);
     data.append("title", formData.title);
-    data.append("article", formData.file); 
+    data.append("article", formData.file);
 
     try {
       setIsSubmitting(true);
@@ -45,7 +54,12 @@ export default function SubmitArticle() {
       });
 
       if (response.ok) {
-        toast.success('Your article has been submitted successfully!');
+        toast.success("Your article has been submitted successfully!", {
+          duration: 5000,
+          position: "top-center",
+        });
+
+        // Reset form
         setFormData({
           authorName: "",
           affiliation: "",
@@ -53,28 +67,35 @@ export default function SubmitArticle() {
           title: "",
           file: null,
         });
+        fileInputRef.current.value = null;
       } else {
-        toast.error('Submission failed. Please try again.')
+        toast.error("Submission failed. Please try again.", {
+          duration: 5000,
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Error submitting article:", error);
-      toast.error('Server error. Please try again later.')
+      toast.error("Server error. Please try again later.", {
+        duration: 5000,
+        position: "top-center",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen ">
       <Navbar />
-      <Toaster position="top-center" />
+      <Toaster />
       <main className="grow flex justify-center items-center py-12 px-4">
-        <div className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-lg">
-          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-800">
+        <div className="w-full max-w-3xl border p-8 rounded-2xl shadow-lg">
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 text-gray-200">
             Submit Your Research Article
           </h1>
 
-          <p className="text-gray-600 text-center mb-8">
+          <p className="text-gray-100 text-center mb-8">
             Authors are invited to submit original manuscripts directly through this platform.
             Please ensure your article follows the{" "}
             <a
@@ -88,7 +109,7 @@ export default function SubmitArticle() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">
+              <label className="block mb-1 font-semibold text-gray-200">
                 Author Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -99,11 +120,12 @@ export default function SubmitArticle() {
                 className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 p-2 rounded"
                 placeholder="John Doe"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">
+              <label className="block mb-1 font-semibold text-gray-200">
                 Affiliation <span className="text-red-500">*</span>
               </label>
               <input
@@ -114,11 +136,12 @@ export default function SubmitArticle() {
                 className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 p-2 rounded"
                 placeholder="University/Institute"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">
+              <label className="block mb-1 font-semibold text-gray-200">
                 Email <span className="text-red-500">*</span>
               </label>
               <input
@@ -129,11 +152,12 @@ export default function SubmitArticle() {
                 className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 p-2 rounded"
                 placeholder="email@example.com"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">
+              <label className="block mb-1 font-semibold text-gray-200">
                 Article Title <span className="text-red-500">*</span>
               </label>
               <input
@@ -144,11 +168,12 @@ export default function SubmitArticle() {
                 className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 p-2 rounded"
                 placeholder="Title of your research"
                 required
+                disabled={isSubmitting}
               />
             </div>
 
             <div>
-              <label className="block mb-1 font-semibold text-gray-800">
+              <label className="block mb-1 font-semibold text-gray-200">
                 Upload Manuscript <span className="text-red-500">*</span>
               </label>
               <input
@@ -157,11 +182,15 @@ export default function SubmitArticle() {
                 onChange={handleChange}
                 className="w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500 p-2 rounded"
                 accept=".pdf,.doc,.docx"
-                required
+                ref={fileInputRef}
+                disabled={isSubmitting}
               />
               <p className="text-sm text-gray-500 mt-1">
                 Accepted formats: <strong>.docx</strong> or <strong>.pdf</strong> | Max size: 10MB
               </p>
+              {formData.file && (
+                <p className="text-sm text-gray-700 mt-1">Selected file: {formData.file.name}</p>
+              )}
             </div>
 
             <div className="flex justify-center">
@@ -171,8 +200,8 @@ export default function SubmitArticle() {
                 className={`${
                   isSubmitting
                     ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
-                } text-white font-semibold px-8 py-2.5 rounded-lg transition`}
+                    : "bg-linear-to-r  from-[#0782df] to-[#0b111d] hover:to-blue-600"
+                } text-white font-semibold px-8 py-2.5 rounded-lg shadow transition`}
               >
                 {isSubmitting ? "Submitting..." : "Submit Article"}
               </button>

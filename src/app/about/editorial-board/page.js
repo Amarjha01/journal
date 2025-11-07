@@ -1,26 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
+import { motion } from "framer-motion";
+import { Search, User, Building2 } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export default function EditorialBoard() {
   const [editors, setEditors] = useState([]);
+  const [filteredEditors, setFilteredEditors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("all");
 
   useEffect(() => {
     const fetchEditors = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/getalluser`);
-        const data = res.data?.data || [];
-        console.log(data);
-        
-        // Only show users with role "editor"
-        
+        const res = await fetch(`http://localhost:5000/api/getalluser`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const json = await res.json();
+        const data = json?.data || [];
 
         setEditors(data);
+        setFilteredEditors(data);
       } catch (err) {
         console.error("Error fetching editors:", err);
         setError("Failed to load editorial board. Please try again later.");
@@ -32,144 +35,278 @@ export default function EditorialBoard() {
     fetchEditors();
   }, []);
 
-  // Separate editors by their subRole
-  const editorInChief = editors.find(
-    (e) => e.subRole && e.subRole.toLowerCase().includes("chief")
+  // Filtering logic
+  useEffect(() => {
+    let result = editors;
+
+    if (selectedFilter !== "all") {
+      result = result.filter((editor) => {
+        const subRole = editor.subRole?.toLowerCase() || "";
+        if (selectedFilter === "chief") return subRole.includes("chief");
+        if (selectedFilter === "associate")
+          return subRole.includes("associate") && !subRole.includes("chief");
+        if (selectedFilter === "member")
+          return !subRole.includes("chief") && !subRole.includes("associate");
+        return true;
+      });
+    }
+
+    if (searchQuery) {
+      result = result.filter(
+        (editor) =>
+          editor.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          editor.subRole?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          editor.backGround?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          editor.address?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredEditors(result);
+  }, [searchQuery, selectedFilter, editors]);
+
+  // Separate roles
+  const editorInChief = filteredEditors.find((e) =>
+    e.subRole?.toLowerCase().includes("chief")
   );
-  const associateEditors = editors.filter(
+  const associateEditors = filteredEditors.filter(
     (e) =>
-      e.subRole &&
-      e.subRole.toLowerCase().includes("associate") &&
-      !e.subRole.toLowerCase().includes("chief")
+      e.subRole?.toLowerCase().includes("associate") &&
+      !e.subRole?.toLowerCase().includes("chief")
   );
-  const boardMembers = editors.filter(
+  const boardMembers = filteredEditors.filter(
     (e) =>
       !e.subRole ||
       (!e.subRole.toLowerCase().includes("chief") &&
         !e.subRole.toLowerCase().includes("associate"))
   );
 
+  // Editor Card
+  const EditorCard = ({ editor, variant = "default" }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      viewport={{ once: true }}
+      className={`rounded-2xl p-6 transition-all border ${
+        variant === "chief"
+          ? " border-blue-200 shadow-lg"
+          : " shadow-sm hover:shadow-md"
+      }`}
+    >
+      <div className="flex items-start gap-5">
+        <div className="flex-shrink-0 w-14 h-14 bg-linear-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-inner">
+          <User className="w-7 h-7 text-blue-700" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3
+            className={`font-semibold text-gray-200 ${
+              variant === "chief" ? "text-xl" : "text-lg"
+            }`}
+          >
+            {editor.name}
+          </h3>
+          {editor.subRole && (
+            <p
+              className={`font-medium ${
+                variant === "chief"
+                  ? "text-blue-700"
+                  : "text-blue-600 text-sm mb-2"
+              }`}
+            >
+              {editor.subRole}
+            </p>
+          )}
+          {editor.backGround && (
+            <p className="text-gray-300 text-sm leading-relaxed mb-2">
+              {editor.backGround}
+            </p>
+          )}
+          {editor.address && (
+            <div className="flex items-start gap-2 mt-1 text-gray-300 text-sm">
+              <Building2 className="w-4 h-4 text-gray-500 mt-0.5" />
+              <p>{editor.address}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  // Skeleton Loader Component
+  const SkeletonCard = ({ variant = "default" }) => (
+    <div
+      className={`rounded-2xl p-6 border ${
+        variant === "chief"
+          ? "border-blue-200 bg-linear-to-br from-blue-50 to-white"
+          : "border-gray-100 bg-white"
+      } animate-pulse`}
+    >
+      <div className="flex items-start gap-5">
+        <div className="w-14 h-14 bg-gray-200 rounded-full"></div>
+        <div className="flex-1 space-y-3">
+          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          <div className="h-3 bg-gray-200 rounded w-1/3"></div>
+          <div className="h-3 bg-gray-200 rounded w-5/6"></div>
+          <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="min-h-screen ">
       <Navbar />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r  from-[#0782df] to-[#0b111d] text-white rounded-full text-sm font-medium shadow mb-4">
+            Editorial Excellence
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold mb-3 text-gray-100">
+            Editorial Board
+          </h1>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Our editorial board is composed of globally recognized scholars and
+            professionals who uphold the journal’s commitment to excellence,
+            ethics, and innovation.
+          </p>
+        </motion.div>
 
-      <main className="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-gray-800">
-          Editorial Board
-        </h1>
+        {/* Search & Filter */}
+        <motion.div
+          className="mb-12 bg-white/40 rounded-2xl border border-gray-200 shadow-sm p-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-100 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search by name, role, or affiliation..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { value: "all", label: "All Members" },
+                { value: "chief", label: "Editor-in-Chief" },
+                { value: "associate", label: "Associate Editors" },
+                { value: "member", label: "Board Members" },
+              ].map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => setSelectedFilter(filter.value)}
+                  className={`px-5 py-2.5 rounded-lg font-medium border transition-all ${
+                    selectedFilter === filter.value
+                      ? "bg-linear-to-r from-blue-700 to-purple-700 text-white border-transparent shadow"
+                      : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
 
-        {/* Loading / Error states */}
+        {/* Skeleton Loader */}
         {loading && (
-          <p className="text-center text-gray-500">Loading editorial board...</p>
-        )}
-        {error && <p className="text-center text-red-500">{error}</p>}
+          <div className="space-y-12">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b-2 border-blue-700 pb-2">
+                Editor-in-Chief
+              </h2>
+              <div className="max-w-4xl">
+                <SkeletonCard variant="chief" />
+              </div>
+            </div>
 
-        {!loading && !error && (
-          <>
-            {/* Editor-in-Chief */}
+            <div>
+              <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b border-gray-300 pb-2">
+                Associate Editors
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {Array(4)
+                  .fill(0)
+                  .map((_, i) => (
+                    <SkeletonCard key={i} />
+                  ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b border-gray-300 pb-2">
+                Editorial Board Members
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {Array(4)
+                  .fill(0)
+                  .map((_, i) => (
+                    <SkeletonCard key={i} />
+                  ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div className="bg-red-50 border-l-4 border-red-700 p-5 rounded-md shadow-sm">
+            <p className="text-red-800 font-medium">{error}</p>
+          </div>
+        )}
+
+        {/* Actual Data */}
+        {!loading && !error && filteredEditors.length > 0 && (
+          <div className="space-y-16">
             {editorInChief && (
-              <section className="mb-12">
-                <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 border-gray-300 pb-2 text-center">
+              <section>
+                <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b-2 border-blue-700 pb-2">
                   Editor-in-Chief
                 </h2>
-
-                <div className="flex justify-center">
-                  <div className="p-6 bg-blue-50 rounded-xl shadow-md text-center max-w-md w-full">
-                    <h3 className="font-bold text-xl text-gray-800 mb-1">
-                      {editorInChief.name}
-                    </h3>
-                    <p className="italic text-gray-600 mb-1">
-                      {editorInChief.subRole}
-                    </p>
-                    {editorInChief.backGround && (
-                      <p className="text-gray-700 text-sm mb-1">
-                        {editorInChief.backGround}
-                      </p>
-                    )}
-                    {editorInChief.address && (
-                      <p className="text-gray-700 text-sm">
-                        {editorInChief.address}
-                      </p>
-                    )}
-                  </div>
+                <div className="max-w-4xl">
+                  <EditorCard editor={editorInChief} variant="chief" />
                 </div>
               </section>
             )}
 
-            {/* Associate Editors */}
             {associateEditors.length > 0 && (
-              <section className="mb-12">
-                <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 border-gray-300 pb-2">
+              <section>
+                <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b border-gray-300 pb-2">
                   Associate Editors
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {associateEditors.map((editor) => (
-                    <div
-                      key={editor._id}
-                      className="p-5 bg-gray-50 rounded-xl shadow-sm hover:shadow-md transition"
-                    >
-                      <h3 className="font-semibold text-lg text-gray-800 mb-1">
-                        {editor.name}
-                      </h3>
-                      {editor.subRole && (
-                        <p className="italic text-gray-600 mb-1">
-                          {editor.subRole}
-                        </p>
-                      )}
-                      {editor.backGround && (
-                        <p className="text-gray-700 text-sm mb-1">
-                          {editor.backGround}
-                        </p>
-                      )}
-                      {editor.address && (
-                        <p className="text-gray-700 text-sm">
-                          {editor.address}
-                        </p>
-                      )}
-                    </div>
+                    <EditorCard key={editor._id} editor={editor} />
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Editorial Board Members */}
             {boardMembers.length > 0 && (
               <section>
-                <h2 className="text-2xl font-semibold mb-6 text-gray-800 border-b-2 border-gray-300 pb-2">
+                <h2 className="text-2xl font-bold text-gray-100 mb-6 border-b border-gray-300 pb-2">
                   Editorial Board Members
                 </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   {boardMembers.map((member) => (
-                    <div
-                      key={member._id}
-                      className="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition"
-                    >
-                      <h3 className="font-medium text-gray-800">{member.name}</h3>
-                      {member.subRole && (
-                        <p className="italic text-sm text-gray-600 mt-1">
-                          {member.subRole}
-                        </p>
-                      )}
-                      {member.backGround && (
-                        <p className="text-gray-700 text-sm mb-1">
-                          {member.backGround}
-                        </p>
-                      )}
-                      {member.address && (
-                        <p className="text-sm text-gray-600 mt-1">
-                          {member.address}
-                        </p>
-                      )}
-                    </div>
+                    <EditorCard key={member._id} editor={member} />
                   ))}
                 </div>
               </section>
             )}
-          </>
+          </div>
         )}
       </main>
-
       <Footer />
     </div>
   );

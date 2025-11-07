@@ -22,7 +22,7 @@ export default function Dropdown({ title, items }) {
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-1 hover:text-blue-600 focus:outline-none"
+        className="flex items-center gap-1 hover:text-[#000e67] focus:outline-none"
       >
         {title}
         <FiChevronDown

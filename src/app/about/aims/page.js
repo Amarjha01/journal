@@ -1,6 +1,4 @@
 "use client";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiTarget, FiAward, FiClock, FiDatabase, FiCheckCircle } from "react-icons/fi";
@@ -62,8 +60,6 @@ export default function Aims() {
       {[...Array(15)].map((_, i) => (
         <FloatingParticle key={i} delay={i * 0.1} />
       ))}
-
-      <Navbar />
 
       <main className="grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         {/* Hero Header */}
@@ -203,8 +199,6 @@ export default function Aims() {
           </div>
         </motion.section>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -17,7 +17,6 @@ export default function GuideForAuthors() {
 
   return (
     <div className="flex flex-col min-h-screen ">
-      <Navbar />
 
       <main className="grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {loading ? (
@@ -193,7 +192,6 @@ export default function GuideForAuthors() {
         )}
       </main>
 
-      <Footer />
     </div>
   );
 }

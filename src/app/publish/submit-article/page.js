@@ -87,7 +87,6 @@ export default function SubmitArticle() {
 
   return (
     <div className="flex flex-col min-h-screen ">
-      <Navbar />
       <Toaster />
       <main className="grow flex justify-center items-center py-12 px-4">
         <div className="w-full max-w-3xl border p-8 rounded-2xl shadow-lg">
@@ -209,7 +208,6 @@ export default function SubmitArticle() {
           </form>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
 
 const archiveData = [
   { volume: 3, issues: ["10", "11", "12"] },
@@ -10,7 +8,6 @@ const archiveData = [
 export default function Archives() {
   return (
     <div>
-      <Navbar />
       <main className="max-w-5xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold mb-6">Archives</h1>
         <div className="space-y-4">
@@ -22,7 +19,6 @@ export default function Archives() {
           ))}
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

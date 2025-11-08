@@ -1,6 +1,4 @@
 "use client";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 import { useState } from "react";
 
 export default function Contact() {
@@ -57,7 +55,6 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col min-h-screen ">
-      <Navbar />
       <main className="grow flex justify-center items-center py-12 px-4">
         <div className="w-full max-w-3xl border p-8 rounded-2xl shadow-lg">
           <h1 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-gray-100">
@@ -125,7 +122,6 @@ export default function Contact() {
           </form>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, User, Building2 } from "lucide-react";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 
 export default function EditorialBoard() {
   const [editors, setEditors] = useState([]);
@@ -155,7 +153,6 @@ export default function EditorialBoard() {
 
   return (
     <div className="min-h-screen ">
-      <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <motion.div
@@ -307,7 +304,6 @@ export default function EditorialBoard() {
           </div>
         )}
       </main>
-      <Footer />
     </div>
   );
 }

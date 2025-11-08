@@ -1,6 +1,4 @@
 "use client"
-import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
 import { useState, useEffect } from 'react';
 import { FiUploadCloud, FiUsers, FiBookOpen, FiAward, FiTrendingUp, FiZap } from "react-icons/fi";
 import lottieChemistry from "../../public/animations/RedNetworkGlobe.json"; 
@@ -68,8 +66,6 @@ export default function Home() {
       <FloatingMolecule delay={2} size={60} />
       <FloatingMolecule delay={4} size={100} />
       <FloatingMolecule delay={1} size={70} />
-      
-     <Navbar />
       
       <main className="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 overflow-x-hidden">
         {/* Hero Section */}
@@ -207,8 +203,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      
-      <Footer />
     </div>
   );
 }

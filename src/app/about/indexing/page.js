@@ -1,7 +1,5 @@
 "use client";
 
-import Navbar from "../../../components/Navbar";
-import Footer from "../../../components/Footer";
 import { motion } from "framer-motion";
 import { FiDatabase, FiAward, FiClock, FiBookOpen } from "react-icons/fi";
 
@@ -16,7 +14,6 @@ export default function Indexing() {
 
   return (
     <div className="flex flex-col min-h-screen ">
-      <Navbar />
 
       <main className="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Page Header */}
@@ -152,8 +149,6 @@ export default function Indexing() {
           </div>
         </motion.section>
       </main>
-
-      <Footer />
     </div>
   );
 }

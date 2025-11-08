@@ -24,13 +24,13 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="sticky top-5 w-full flex justify-center items-center z-50">
-      <nav className="backdrop-blur-xl bg-black/10  shadow-md w-[90vw] rounded-full">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    <div className="sticky top-5  w-full flex justify-center items-center z-50 ">
+      <nav className="backdrop-blur-xl bg-black/10  shadow-md w-[90vw]  rounded-full">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-1">
           {/* Brand / Logo */}
           <Link
             href="/"
-            className="text-xl sm:text-2xl font-bold bg-linear-to-r from-[#0782df]/20 to-[#0b111d]/50 transition px-3 rounded-full bams-cop-blur-3xl"
+            className="text-xl sm:text-2xl font-bold bg-blue-500/50 transition px-3 py-2 rounded-full bams-cop-blur-3xl -translate-x-2.5"
           >
             IJIRBSE
           </Link>
@@ -64,13 +64,15 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+     
+      </nav>
+         {/* Mobile Dropdown Menu */}
         <div
           className={`${
-            menuOpen ? "translate-x-0" : "translate-x-[100vw]"
-          } md:hidden fixed top-20 right-0 w-full  bg-linear-to-br from-[#0782df] to-[#0b111d] rounded-2xl  transition-transform duration-300 ease-in-out transform overflow-x-hidden`}
+            menuOpen ? "-translate-x-5" : "translate-x-[60vw]"
+          } md:hidden fixed top-20 right-0 w-[60vw]  bg-linear-to-br from-[#0782df] to-[#0b111d] rounded-2xl  transition-transform duration-300 ease-in-out transform`}
         >
-          <div className="flex flex-col space-y-4 pt-6 px-4  rounded-2xl z-50 h-full backdrop-blur-3xl text-white">
+          <div className="flex flex-col space-y-4 py-6 px-4  rounded-2xl z-50 h-full backdrop-blur-3xl text-white">
             <Dropdown title="About the Journal" items={aboutItems} />
             <Dropdown title="Publish" items={publishItems} />
             <Dropdown title="Articles & Issues" items={articlesItems} />
@@ -89,7 +91,6 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-      </nav>
     </div>
   );
 }

@@ -71,10 +71,10 @@ export default function Home() {
       
      <Navbar />
       
-      <main className="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+      <main className="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 overflow-x-hidden">
         {/* Hero Section */}
         <section className={`text-center mb-20 ${isVisible ? 'animate-slide-up' : 'opacity-0'}`}>
-           <div className="w-[200vw] lg:w-full absolute -z-10 blur-sm ">
+           <div className="w-[300vw] lg:w-full absolute -z-10 blur-sm ">
               <Lottie animationData={lottieChemistry} loop={true} />
             </div>
          

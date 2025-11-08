@@ -8,7 +8,9 @@ export default function ClientLayout({ children }) {
 
   return (
     <>
-      <main>{children}</main>
+      <main className=" overflow-hidden">
+        {children}
+      </main>
     </>
   );
 }

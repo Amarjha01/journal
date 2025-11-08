@@ -24,7 +24,7 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="sticky top-5  w-full flex justify-center items-center z-50 ">
+    <div className="sticky top-5  max-w-7xl flex justify-center items-center z-50 ">
       <nav className="backdrop-blur-xl bg-black/10  shadow-md w-[90vw]  rounded-full">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-1">
           {/* Brand / Logo */}

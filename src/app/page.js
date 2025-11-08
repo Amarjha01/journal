@@ -74,7 +74,7 @@ export default function Home() {
       <main className="grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         {/* Hero Section */}
         <section className={`text-center mb-20 ${isVisible ? 'animate-slide-up' : 'opacity-0'}`}>
-           <div className="w-full absolute -z-10 blur-md">
+           <div className="w-[200vw] lg:w-full absolute -z-10 blur-sm ">
               <Lottie animationData={lottieChemistry} loop={true} />
             </div>
          
@@ -98,13 +98,13 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-16">
-            <button className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-full font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
+            <a href='/publish/submit-article' className="px-8 py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white rounded-full font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
               <FiUploadCloud className="w-5 h-5" />
               Submit Your Research
-            </button>
-            <button className="px-8 py-4 bg-white text-gray-800 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+            </a>
+            <a href='/articles/latest-issues' className="px-8 py-4 bg-white text-gray-800 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 border border-gray-200">
               Browse Articles
-            </button>
+            </a>
           </div>
 
           {/* Stats Section */}
@@ -141,7 +141,7 @@ export default function Home() {
           </div>
 
           {/* Card 2 - Submit Article */}
-          <div className="group relative p-8  rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
+          <div className="group relative p-8 bg-linear-to-br from-blue-500 to-90%  rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
             <div className="absolute top-0 right-0 w-40 h-40 bg-white/50 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
             <div className="relative z-10">
               <FiUploadCloud className="w-12 h-12 text-white mb-4" />

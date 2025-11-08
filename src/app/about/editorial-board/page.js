@@ -87,7 +87,7 @@ export default function EditorialBoard() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       viewport={{ once: true }}
-      className={`rounded-2xl p-6 transition-all border ${
+      className={`rounded-2xl p-6  transition-transform duration-300 ease-in transform border ${
         variant === "chief"
           ? " border-blue-200 shadow-lg"
           : " shadow-sm hover:shadow-md"
@@ -109,8 +109,8 @@ export default function EditorialBoard() {
             <p
               className={`font-medium ${
                 variant === "chief"
-                  ? "text-blue-700"
-                  : "text-blue-600 text-sm mb-2"
+                  ? "text-blue-400"
+                  : "text-blue-300 text-sm mb-2"
               }`}
             >
               {editor.subRole}
@@ -207,7 +207,7 @@ export default function EditorialBoard() {
                   onClick={() => setSelectedFilter(filter.value)}
                   className={`px-5 py-2.5 rounded-lg font-medium border transition-all ${
                     selectedFilter === filter.value
-                      ? "bg-linear-to-r from-blue-700 to-purple-700 text-white border-transparent shadow"
+                      ? "bg-linear-to-r  from-[#0782df] to-[#0b111d] text-white border-transparent shadow"
                       : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                   }`}
                 >

@@ -100,7 +100,7 @@ export default function SubmitArticle() {
             Please ensure your article follows the{" "}
             <a
               href="guide-for-authors"
-              className="text-blue-600 underline hover:text-blue-800"
+              className="text-blue-500 underline hover:text-blue-400"
             >
               Guide for Authors
             </a>{" "}
@@ -185,7 +185,7 @@ export default function SubmitArticle() {
                 ref={fileInputRef}
                 disabled={isSubmitting}
               />
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-sm text-gray-100 mt-1">
                 Accepted formats: <strong>.docx</strong> or <strong>.pdf</strong> | Max size: 10MB
               </p>
               {formData.file && (

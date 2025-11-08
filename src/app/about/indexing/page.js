@@ -26,16 +26,16 @@ export default function Indexing() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-medium shadow-lg mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r  from-[#0782df] to-[#0b111d] text-white rounded-full text-sm font-medium shadow-lg mb-6">
             <FiDatabase className="w-4 h-4" />
             Journal Indexing
           </div>
 
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-purple-600 to-pink-600">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-linear-to-r  from-[#0782df] to-[#5d84d3]">
             Journal Indexing & Insight
           </h1>
 
-          <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-purple-600 mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-linear-to-r  from-[#0782df] to-[#0b111d] mx-auto rounded-full"></div>
         </motion.div>
 
         {/* Introduction */}
@@ -74,7 +74,7 @@ export default function Indexing() {
           className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 mb-10 border border-white/50"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-linear-to-r  from-[#0782df] to-[#0b111d] rounded-xl flex items-center justify-center shadow-lg">
               <FiAward className="w-6 h-6 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
@@ -105,7 +105,7 @@ export default function Indexing() {
           className=" rounded-3xl shadow-2xl p-8 text-white border border-white/20"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-linear-to-r  from-[#0782df] to-[#0b111d] rounded-xl flex items-center justify-center shadow-lg">
               <FiBookOpen className="w-6 h-6 text-white" />
             </div>
             <h2 className="text-3xl font-bold">Journal Insight</h2>

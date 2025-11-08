@@ -173,7 +173,7 @@ export default function Aims() {
                 </div>
                 <h3 className="font-semibold text-lg">Publishing Options</h3>
               </div>
-              <p className="text-blue-100">Open Access</p>
+              <p className="text-white">Open Access</p>
             </div>
 
             {/* Publication Timeline */}
@@ -184,7 +184,7 @@ export default function Aims() {
                 </div>
                 <h3 className="font-semibold text-lg">Publication Timeline</h3>
               </div>
-              <p className="text-blue-100">30–90 days</p>
+              <p className="text-white">30–90 days</p>
             </div>
 
             {/* Indexing */}
@@ -195,7 +195,7 @@ export default function Aims() {
                 </div>
                 <h3 className="font-semibold text-lg">Indexing</h3>
               </div>
-              <p className="text-blue-100 text-sm leading-relaxed">
+              <p className="text-white text-sm leading-relaxed">
                 Research Gate (Under process), Google Scholar (Under process), 
                 Chemical Abstract (Under process), Index Copernicus (Under process), Scopus (Under process)
               </p>

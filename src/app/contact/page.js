@@ -116,7 +116,7 @@ export default function Contact() {
                 className={`${
                   isSubmitting
                     ? "bg-blue-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
+                    : "bg-linear-to-r  from-[#0782df] to-[#0b111d] hover:bg-blue-700 cursor-pointer"
                 } text-white font-semibold px-8 py-2.5 rounded-lg transition`}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}

@@ -76,16 +76,36 @@ export default function Home() {
          
           
           <h1 className="text-5xl sm:text-7xl font-extrabold leading-tight mb-6  ">
-            Welcome to the IJIRCB
+            Welcome to the IJIBSE
           </h1>
            
            <div className=' absolute right-0 hidden lg:block'>
             <VerticalCarousel />
            </div>
-        
-            <p className="text-xl  max-w-3xl mx-auto mb-8 leading-relaxed ">
-            International Journal of Interdisciplinary Research in Chemistry & Biology
-          </p>
+
+        {/* this part responsive */}
+       {/* this part responsive */}
+<div className="flex flex-col w-fit xl:flex-row items-center gap-8 lg:gap-16 my-12 bg-amber-30">
+  <img
+    className="w-full max-w-sm lg:max-w-75  rounded-2xl shadow-lg object-cover"
+    src="/IJIRBSE.jpg"
+    alt="IJIRBSE journal cover"
+  />
+  
+  <div className="text-center lg:text-left xl:max-w-xl ">
+    <p className="text-2xl sm:text-3xl font-semibold text-white mb-4">
+      International Journal of Interdisciplinary Research in Chemistry & Biology
+    </p>
+    
+    <p className="text-base sm:text-lg text-gray-100 leading-relaxed">
+      The <strong>International Journal of Interdisciplinary Research in Basic Sciences and Engineering (IJIRBSE)</strong> 
+      is devoted to publishing high-quality original research articles, reviews, and short communications that advance 
+      knowledge of Basic Sciences and Engineering and their interdisciplinary interfaces. It provides a platform for researchers to explore innovative ideas in Basic Sciences, Engineering, and Interdisciplinary Research. The following areas reflect, but are not limited to, the scope of the journal. Any topic fitting within the scope of the journal is welcomed for submission.
+    </p>
+  </div>
+</div>
+
+           
        
           
           <p className="text-lg max-w-2xl lg:max-w-3xl mx-auto px-6 mb-10 ">

@@ -188,7 +188,7 @@ export default function SubmitArticle() {
                 Accepted formats: <strong>.docx</strong> or <strong>.pdf</strong> | Max size: 10MB
               </p>
               {formData.file && (
-                <p className="text-sm text-gray-700 mt-1">Selected file: {formData.file.name}</p>
+                <p className="text-sm text-blue-500 mt-1">Selected file: {formData.file.name}</p>
               )}
             </div>
 

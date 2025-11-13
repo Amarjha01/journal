@@ -30,9 +30,9 @@ export default function Navbar() {
           {/* Brand / Logo */}
           <Link
             href="/"
-            className="text-xl sm:text-2xl font-bold bg-blue-500/50 transition px-3 py-2 rounded-full bams-cop-blur-3xl -translate-x-2.5"
+            className=" font-bold bg-white transition px-3 py-2 rounded-full bams-cop-blur-3xl -translate-x-2.5"
           >
-            IJIRBSE
+            <img src="/journal logo.svg" alt="" />
           </Link>
 
           {/* Desktop Menu */}
